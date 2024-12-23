@@ -106,7 +106,7 @@ class MembersView extends StatelessWidget {
                     _showAlertDialog(context, "Lütfen tüm alanları doldurun!");
                   } else {
                     // Başarılı giriş sonrası ProfilePage'e git
-                    Navigator.push(
+                    Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context) => const ProfileView()),
                     );
