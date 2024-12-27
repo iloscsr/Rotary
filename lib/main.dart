@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rotary/view/main_view.dart';
+import 'view/profile/profile_view.dart'; // Profil sayfasına yönlendirme
 
 void main() {
   runApp(const MainApp());
@@ -10,13 +11,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: MainView(),
-        ),
+      title: 'Rotary Uygulaması',
+      theme: ThemeData(
+        primaryColor: const Color.fromARGB(255, 255, 255, 255),
       ),
+      home: MainView(), // Profil sayfasını açıyoruz
     );
   }
 }

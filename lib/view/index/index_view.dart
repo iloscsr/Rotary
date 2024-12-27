@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rotary/core/constants/ui_constants.dart';
 
 class IndexView extends StatelessWidget {
   const IndexView({super.key});
@@ -6,13 +7,12 @@ class IndexView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Özetle Rotary"),
-      ),
+      backgroundColor: ColorConst.whiteColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
             // Tablo düzeni
+            Text("Rotary", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(

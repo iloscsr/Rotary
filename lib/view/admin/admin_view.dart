@@ -1,41 +1,42 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rotary/view/main_view.dart';
-import 'dart:io'; // Dosya işlemleri için import
-import 'activity/activity_view.dart'; // ActivityView import
-import 'announcement/announcement_view.dart'; // AnnouncementView import
-import 'calendar/calendar_view.dart'; // CalendarView import
-import 'opinion/opinion_view.dart'; // OpinionView import
+import 'package:rotary/view/admin/adminActivity/adminActivity_view.dart';
+import 'package:rotary/view/admin/adminAnnouncement/adminAnnouncement_view.dart';
+import 'package:rotary/view/admin/adminOpinion/adminOpinion_view.dart';
+import 'package:rotary/view/admin/userAccount/userAccount_view.dart';
 
-class ProfileView extends StatefulWidget {
-  const ProfileView({super.key});
-
-  @override
-  _ProfileViewState createState() => _ProfileViewState();
+void main() {
+  runApp(const AdminPage());
 }
 
-class _ProfileViewState extends State<ProfileView> {
-  File? _image;
-  final ImagePicker _picker = ImagePicker();
+class AdminPage extends StatefulWidget {
+  const AdminPage({super.key});
 
-  // Profil resmini değiştirmek için fonksiyon
+  @override
+  _AdminPageState createState() => _AdminPageState();
+}
+
+class _AdminPageState extends State<AdminPage> {
+  final ImagePicker _picker = ImagePicker();
+  XFile? _image; // image değişkenini burada tanımlıyoruz
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController(); // New controller for address
+
+  String _email = "admin@gmail.com";
+  String _phone = "+1 234 567 890";
+  String _address = "İstanbul";
+
   Future<void> _pickImage() async {
     final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       setState(() {
-        _image = File(pickedFile.path);
+        _image = pickedFile;
       });
     }
   }
-
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
-
-  String _email = "ilos@gmail.com";
-  String _phone = "+1 234 567 890";
-  String _address = "İstanbul";
 
   void _updateEmail() {
     setState(() {
@@ -58,61 +59,18 @@ class _ProfileViewState extends State<ProfileView> {
     _addressController.clear();
   }
 
-  void _goToEventsPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ActivityView()), // ActivityView yönlendirmesi
-    );
-  }
-
-  void _openCalendar() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => CalendarView()), // CalendarView yönlendirmesi
-    );
-  }
-
-  void _openAnnouncementsPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => AnnouncementsPage()), // AnnouncementsPage yönlendirmesi
-    );
-  }
-
-  void _openOpinionPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => OpinionView()), // OpinionView yönlendirmesi
-    );
-  }
-
-  void _goBackToMainView() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => MainView()),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Admin'),
+        ),
+        body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Geri Dönüş Butonu
-              Align(
-                alignment: Alignment.topLeft,
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Color.fromARGB(255, 0, 0, 0)),
-                  onPressed: _goBackToMainView,
-                ),
-              ),
-              const SizedBox(height: 10),
-
-              // Profil Resmi ve Düzenleme
               Row(
                 children: [
                   Stack(
@@ -120,8 +78,8 @@ class _ProfileViewState extends State<ProfileView> {
                       CircleAvatar(
                         radius: 50,
                         backgroundImage: _image != null
-                            ? FileImage(_image!)
-                            : const NetworkImage('https://via.placeholder.com/100'),
+                            ? FileImage(File(_image!.path))
+                            : NetworkImage('https://via.placeholder.com/100') as ImageProvider,
                       ),
                       Positioned(
                         bottom: 0,
@@ -138,7 +96,7 @@ class _ProfileViewState extends State<ProfileView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
                       Text(
-                        'ilayda cosar',
+                        'Admin',
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       Text('Görevi: Yönetici'),
@@ -243,7 +201,7 @@ class _ProfileViewState extends State<ProfileView> {
                         return AlertDialog(
                           title: const Text('Adresi Düzenle'),
                           content: TextFormField(
-                            controller: _addressController,
+                            controller: _addressController, // Correct controller for address
                             decoration: const InputDecoration(
                               labelText: 'Yeni Adres',
                               prefixIcon: Icon(Icons.location_on),
@@ -253,7 +211,7 @@ class _ProfileViewState extends State<ProfileView> {
                           actions: [
                             TextButton(
                               onPressed: () {
-                                _updateAddress();
+                                _updateAddress(); // Correct function for address
                                 Navigator.pop(context);
                               },
                               child: const Text('Güncelle'),
@@ -274,39 +232,51 @@ class _ProfileViewState extends State<ProfileView> {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: 0,
-        onTap: (index) {
-          if (index == 3) {
-            _openCalendar();
-          } else if (index == 1) {
-            _goToEventsPage(); // Etkinlikler sekmesinde ActivityView yönlendirilmesi yapılır
-          } else if (index == 0) {
-            _openAnnouncementsPage(); // Duyurular sekmesinde AnnouncementsPage yönlendirilmesi yapılır
-          } else if (index == 2) {
-            _openOpinionPage(); // Görüşler sekmesine yönlendirme
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Duyurular',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_activity),
-            label: 'Etkinlikler',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.ballot),
-            label: 'Görüşler',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month),
-            label: 'Takvim',
-          ),
-        ],
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: 0,
+          onTap: (index) {
+            if (index == 0) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AdminActivity()),
+              );
+            } else if (index == 1) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AdminAnnouncement()),
+              );
+            } else if (index == 2) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AdminOpinion()),
+              );
+            } else if (index == 3) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const UserAccount()),
+              );
+            }
+          },
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.local_activity),
+              label: 'Etkinlikler',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.people),
+              label: 'Kullanıcılar',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.ballot),
+              label: 'Görüşler',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.notifications),
+              label: 'Duyurular',
+            ),
+          ],
+        ),
       ),
     );
   }
