@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rotary/view/main_view.dart';
 import 'dart:io'; // Dosya işlemleri için import
@@ -70,6 +72,7 @@ class _ProfileViewState extends State<ProfileView> {
       context,
       MaterialPageRoute(builder: (context) => CalendarView()), // CalendarView yönlendirmesi
     );
+    //Get.to(CalendarView());
   }
 
   void _openAnnouncementsPage() {
@@ -96,6 +99,11 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Profil'),
+        //centerTitle: false,
+        actions: [Icon(Icons.calendar_month)],
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -103,14 +111,6 @@ class _ProfileViewState extends State<ProfileView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Geri Dönüş Butonu
-              Align(
-                alignment: Alignment.topLeft,
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Color.fromARGB(255, 0, 0, 0)),
-                  onPressed: _goBackToMainView,
-                ),
-              ),
-              const SizedBox(height: 10),
 
               // Profil Resmi ve Düzenleme
               Row(
@@ -149,46 +149,11 @@ class _ProfileViewState extends State<ProfileView> {
               const SizedBox(height: 20),
 
               // Profil Bilgilerini Görüntüleme ve Düzenleme Butonları
-              ListTile(
-                title: const Text('E-posta Adresi'),
-                subtitle: Text(_email),
-                trailing: IconButton(
-                  icon: const Icon(Icons.edit, color: Colors.blue),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text('E-posta Düzenle'),
-                          content: TextFormField(
-                            controller: _emailController,
-                            decoration: const InputDecoration(
-                              labelText: 'Yeni E-posta',
-                              prefixIcon: Icon(Icons.email),
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                _updateEmail();
-                                Navigator.pop(context);
-                              },
-                              child: const Text('Güncelle'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text('İptal'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
+              ProfileListTile(title: "Eposta",subtitle: _email,),
+              ProfileListTile(title: "Adres",subtitle: _address,),
+              ProfileListTile(title: "Telefon",subtitle: _phone,),
+
+              /*
               const SizedBox(height: 10),
               ListTile(
                 title: const Text('Telefon Numarası'),
@@ -270,7 +235,7 @@ class _ProfileViewState extends State<ProfileView> {
                     );
                   },
                 ),
-              ),
+              ),*/
             ],
           ),
         ),
@@ -307,6 +272,61 @@ class _ProfileViewState extends State<ProfileView> {
             label: 'Takvim',
           ),
         ],
+      ),
+    );
+  }
+}
+
+class ProfileListTile extends StatelessWidget {
+  const ProfileListTile({
+    super.key,
+    required  this.subtitle, required this.title,
+  }) ;
+
+  final String subtitle;
+  final String title;
+  final bool isEditable = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title:  Text(title),
+      subtitle: Text(subtitle),
+      trailing: IconButton(
+        icon: const Icon(Icons.edit, color: Colors.blue),
+        onPressed: () {/*
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text('E-posta Düzenle'),
+                content: TextFormField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(
+                    labelText: 'Yeni E-posta',
+                    prefixIcon: Icon(Icons.email),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      _updateEmail();
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Güncelle'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('İptal'),
+                  ),
+                ],
+              );
+            },
+          );*/
+        },
       ),
     );
   }

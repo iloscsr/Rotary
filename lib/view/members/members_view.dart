@@ -172,7 +172,7 @@ class MembersView extends StatelessWidget {
 
                   if (email.isEmpty || password.isEmpty) {
                     _showAlertDialog(context, "Lütfen tüm alanları doldurun!");
-                  } else if (email == 'admin@gmail.com' && password == 'sifre123') {
+                  } else if (email == 'admin' && password == '123') {
                     Navigator.push(
                       context,
                       MaterialPageRoute(

@@ -224,7 +224,6 @@ class _AdminActivityState extends State<AdminActivity> {
                 },
               ),
               const SizedBox(height: 20),
-
               // Category selection
               DropdownButtonFormField<String>(
                 value: _category,
@@ -245,8 +244,9 @@ class _AdminActivityState extends State<AdminActivity> {
                   });
                 },
               ),
-              const SizedBox(height: 20),
 
+              const SizedBox(height: 20),
+/*
               // Event type (online or in-person)
               Row(
                 children: [
@@ -272,7 +272,7 @@ class _AdminActivityState extends State<AdminActivity> {
                     },
                   ),
                 ],
-              ),
+              ),*/
               const SizedBox(height: 20),
 
               // Save button

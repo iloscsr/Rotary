@@ -64,26 +64,26 @@ class IndexView extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   // İlk satırın açıklamaları
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // İlk sütun açıklaması
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: const Text(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
                             "Her Rotary kulübü, hizmet idealini kendi kişisel, mesleki ve toplum hayatının doyurucu bir hedefi olarak kabul eden iş ve meslek sahibi kişilerden oluşur.",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 14),
                           ),
                         ),
                       ),
-                      const SizedBox(width: 20),
+                      SizedBox(width: 20),
                       // İkinci sütun açıklaması
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: const Text(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
                             "Günlük yaşamda değerli girişimlerin temeli sayılan Hizmet ideali’ni teşvik etmek ve geliştirmek; özellikle de aşağıda belirtilen dört alanda kişileri özendirip, onlara destek vermektir.",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 14),
@@ -140,26 +140,26 @@ class IndexView extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   // İkinci satırın açıklamaları
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Üçüncü sütun açıklaması
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: const Text(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
                             "Rotary, genç bir avukat olan Paul Harris ve 3 yakın arkadaşının 23 Şubat 1905 tarihinde yaptıkları toplantıda almış oldukları ortak kararla bir iş adamları kulübü kurmuştur.",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 14),
                           ),
                         ),
                       ),
-                      const SizedBox(width: 20),
+                      SizedBox(width: 20),
                       // Dördüncü sütun açıklaması
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: const Text(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
                             "Dörtlü özdenetim kuralı, ilk olarak 1932 yılında Herbert J.Taylor tarafından söylenmiştir.",
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 14),

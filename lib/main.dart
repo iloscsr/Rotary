@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+// import 'package:rotary/view/admin/adminActivity/adminActivity_view.dart';
+// import 'package:rotary/view/admin/admin_view.dart';
 import 'package:rotary/view/main_view.dart';
-import 'view/profile/profile_view.dart'; // Profil sayfasına yönlendirme
+// import 'view/profile/profile_view.dart'; // Profil sayfasına yönlendirme
 
 void main() {
   runApp(const MainApp());
